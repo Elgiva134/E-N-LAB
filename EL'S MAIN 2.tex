@@ -1,0 +1,89 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Assignment 3 (Diode Signal Detector on ESP32)}
+\author{Saaburo-Borkpeen Ngmenbob Boniface, 4108424}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+This report outlines the third lab session, focusing on the construction and testing of a diode-based signal detection circuit with an ESP32 microcontroller. The objective was to safely detect high-voltage signals using a diode for protection.
+
+\section{ GitHub Repository Screenshot}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0 \textwidth]{Diode.png}
+    \caption{ GitHub Repository with Project Code}
+    \label{fig:image}
+\end{figure}
+
+\section{What is a Diode and How it Functions}
+A diode is a semiconductor component that permits current to flow in only one direction. It features两位 terminals: the anode and the cathode. Current flows when the anode's voltage exceeds the cathode's (forward-biased), but is blocked when the polarity reverses (reverse-biased). This one-way property makes diodes valuable for safeguarding circuits against reverse voltage and ensuring unidirectional signal flow, which is essential in this experiment for detecting high voltage post-rectification.
+\section{Project Description}
+The project focused on using the ESP32 to detect whether a high voltage signal was present after a diode in the circuit.
+
+\subsection{Steps Followed}
+
+ \item  1. Built a basic rectifier circuit using a diode to clip AC signals.
+ \item  2. Connected the output of the diode to GPIO pin 25 on the ESP32.
+ \item  3. Wrote Arduino code to read the input and print messages based on voltage level.
+ \item  4. Uploaded and monitored the serial monitor output to confirm detection.
+
+\subsection{Arduino Code Used}
+
+\item // Diode Signal Detector on ESP32
+\item const int signalPin = 25; // Pin connected after the diode
+\item void setup()
+  \{
+\item Serial.begin(115200);
+\item pinMode(signalPin, INPUT);
+ \}
+\item void loop()
+  \{
+\item int signalState = digitalRead(signalPin);
+\item if (signalState == HIGH)
+ \{
+\item Serial.println("High voltage detected!");
+\}
+\item else
+  \{
+\item Serial.println("No high voltage detected (safe).");
+\}
+\item delay(500);
+\}
+
+
+\section{Observations and Results}
+The code successfully detected voltage levels. When a signal was present after the diode,the serial monitor displayed “High voltage detected!”. When no signal was present, the message was “No high voltage detected (safe).”
+This behavior validated that the diode effectively allowed only forward-biased signals and protected the ESP32 from direct exposure to higher voltages.
+
+\newpage
+
+\section{ Proteus Simulations}
+\subsection{ Experiment 1 Screenshot}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0 \textwidth]{Proteus.png}
+    \caption{Proteus Simulation - Experiment 1}
+    \label{fig:image}
+\end{figure}
+
+\section{Conclusion}
+The lab effectively showcased voltage detection following a diode using an ESP32. The diode offered critical protection, and the ESP32 consistently identified the presence or absence of a signal.
+\end{document}
